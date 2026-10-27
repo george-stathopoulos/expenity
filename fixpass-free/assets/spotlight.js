@@ -10,7 +10,7 @@
 	var cfg = window.fixpassSpotlight || {};
 	var t = cfg.i18n || {};
 	var PREFIX = 'fxp-pin';
-	// Marks Pinpoint's own overlay, so picking ignores it (page classes may start with "fxp-pin" too).
+	// Marks Spotlight's own overlay, so picking ignores it (page classes may start with "fxp-pin" too).
 	var MARK = 'fxp-pin-ui';
 
 	function el( tag, cls, text ) {
@@ -34,7 +34,7 @@
 		return false;
 	}
 
-	// Elements that differ between visitors (the admin toolbar, Pinpoint's own overlay) or that
+	// Elements that differ between visitors (the admin toolbar, Spotlight's own overlay) or that
 	// aren't part of the layout: never counted when finding an element again.
 	function counts( n ) {
 		return (
@@ -277,7 +277,7 @@
 	 * @return {Object} Spot.
 	 */
 	function spotData( node, rect, isArea ) {
-		var log = window.rspPinLog || { errors: [], requests: [] };
+		var log = window.fixpassLog || { errors: [], requests: [] };
 		return {
 			url: window.location.href,
 			title: document.title,
@@ -382,7 +382,7 @@
 			go.disabled = more.disabled = no.disabled = true;
 			go.textContent = t.working;
 			window
-				.fetch( cfg.api + 'admin/spot', {
+				.fetch( cfg.api + 'spots', {
 					method: 'POST',
 					credentials: 'same-origin',
 					headers: { 'Content-Type': 'application/json', 'X-WP-Nonce': cfg.nonce },
@@ -418,7 +418,7 @@
 
 	function highlight( id ) {
 		window
-			.fetch( cfg.api + 'spot/' + id, { credentials: 'same-origin' } )
+			.fetch( cfg.api + 'spots/' + id, { credentials: 'same-origin' } )
 			.then( function ( r ) {
 				return r.ok ? r.json() : Promise.reject();
 			} )
